@@ -9,6 +9,8 @@ export class PostRequest extends Component {
          firstname: "",
          middlename: "",
          lastname: "",
+         email: "",
+         password: "",
          success: "",
          failure: "",
       }
@@ -18,13 +20,13 @@ export class PostRequest extends Component {
     }
 
     submitHandler = (event) => {
-        const{firstname, middlename, lastname} = this.state
+        const{firstname, middlename, lastname, email, password} = this.state
         event.preventDefault()
         console.log(this.state)
-        if(!firstname || !middlename || !lastname){
+        if(!firstname || !middlename || !lastname || !email || !password){
             this.setState({failure: "please fill all details"})
         }else{
-            axios.post("https://shrouded-taiga-78885.herokuapp.com/api/user", this.state)
+            axios.post("https://tonylyon.herokuapp.com/api/user", this.state)
                 .then(response => {
                     console.log(response)
                     this.setState({success: "Congrate you have successfully signed up"})
@@ -37,7 +39,7 @@ export class PostRequest extends Component {
     }
 
   render() {
-      const {firstname, middlename, lastname, success, failure} = this.state
+      const {firstname, middlename, lastname, email, password, success, failure} = this.state
     return (
       <div>
           <p>{success}</p>
@@ -67,6 +69,24 @@ export class PostRequest extends Component {
                     type="text" 
                     value={lastname}
                     name="lastname"
+                    onChange={this.changeHandler}
+                  />
+              </div>
+              <div>
+                  <label>email: </label>
+                  <input 
+                    type="text" 
+                    value={email}
+                    name="email"
+                    onChange={this.changeHandler}
+                  />
+              </div>
+              <div>
+                  <label>password: </label>
+                  <input 
+                    type="text" 
+                    value={password}
+                    name="password"
                     onChange={this.changeHandler}
                   />
               </div>
